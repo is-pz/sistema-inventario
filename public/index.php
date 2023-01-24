@@ -10,6 +10,7 @@ use Slim\Routing\RouteCollectorProxy;
 
 use App\Controllers\HomeController;
 use App\Controllers\UsersController;
+use App\Controllers\RolesController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -22,6 +23,8 @@ $app->add(TwigMiddleware::create($app, $twig));
 $app->get("/", [HomeController::class, 'index'])->setName('home');
 
 $app->get("/user", [UsersController::class, 'index'])->setName('users');
+
+$app->get("/roles", [RolesController::class, 'index'])->setName('rolesUser');
 
 
 
