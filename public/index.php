@@ -12,6 +12,7 @@ use App\Controllers\HomeController;
 use App\Controllers\UsersController;
 use App\Controllers\RolesController;
 use App\Controllers\CategoriesController;
+use App\Controllers\ProductsController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -28,6 +29,8 @@ $app->get("/user", [UsersController::class, 'index'])->setName('users');
 $app->get("/roles", [RolesController::class, 'index'])->setName('roles');
 
 $app->get("/categories", [CategoriesController::class, 'index'])->setName('categories');
+
+$app->get("/products", [ProductsController::class, 'index'])->setName('products');
 
 
 
