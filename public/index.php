@@ -25,7 +25,19 @@ $app->add(TwigMiddleware::create($app, $twig));
 
 $app->get("/", [HomeController::class, 'index'])->setName('home');
 
-$app->get("/user", [UsersController::class, 'index'])->setName('users');
+
+$app->group('/user', function (RouteCollectorProxy $group) {
+    $group->get("", [UsersController::class, 'index'])->setName('users');
+
+    $group->get("/create", [UsersController::class, 'index'])->setName('create_user'); //show
+
+    $group->post("/store", [UsersController::class, 'index'])->setName('create_user'); //store
+    
+
+
+});
+
+
 
 $app->get("/roles", [RolesController::class, 'index'])->setName('roles');
 
