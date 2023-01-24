@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+
+{% block container %}
+	<div class="col-lg-12 mt-3 p-3">
+		<div class="card" style="width: 100%;">
+			<div class="card-body">
+				<div class="card-title col-lg-12 row">
+                    <h5 class="col">
+                        <i class="bi bi-people-fill"></i>
+                        Historico de ventas
+                    </h5>
+                    
+                    <div class="col">
+                        <a href="{{ full_url_for("sells") }}" class="btn btn-primary">
+							Agregar una venta
+                        </a>
+                    </div>
+				</div>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nombre del producto</th>
+							<th>Precio al publico</th>
+							<th>No. Serie</th>
+							<th>Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -13,6 +13,7 @@ use App\Controllers\UsersController;
 use App\Controllers\RolesController;
 use App\Controllers\CategoriesController;
 use App\Controllers\ProductsController;
+use App\Controllers\SellsController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -32,7 +33,7 @@ $app->get("/categories", [CategoriesController::class, 'index'])->setName('categ
 
 $app->get("/products", [ProductsController::class, 'index'])->setName('products');
 
-
+$app->get("/sells", [SellsController::class, 'index'])->setName('sells');
 
 
 $app->run();
