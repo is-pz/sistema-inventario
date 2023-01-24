@@ -1,0 +1,12 @@
+#container-sidebar{
+    height: 100vh;
+}
+#ul-sidebar {
+    text-decoration: none;  
+    list-style: none;
+}
+
+#ul-sidebar li button a{
+    text-decoration: none; 
+    color: white;
+}
