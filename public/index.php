@@ -11,6 +11,7 @@ use Slim\Routing\RouteCollectorProxy;
 use App\Controllers\HomeController;
 use App\Controllers\UsersController;
 use App\Controllers\RolesController;
+use App\Controllers\CategoriesController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -24,7 +25,10 @@ $app->get("/", [HomeController::class, 'index'])->setName('home');
 
 $app->get("/user", [UsersController::class, 'index'])->setName('users');
 
-$app->get("/roles", [RolesController::class, 'index'])->setName('rolesUser');
+$app->get("/roles", [RolesController::class, 'index'])->setName('roles');
+
+$app->get("/categories", [CategoriesController::class, 'index'])->setName('categories');
+
 
 
 
