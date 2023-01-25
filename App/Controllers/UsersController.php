@@ -3,9 +3,11 @@
 namespace App\Controllers;
 
 use App\Models\RolesModel;
+use App\Models\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
+use Slim\Routing\RouteContext;
 
 use App\Models\UserModel;
 
@@ -46,17 +48,29 @@ class UsersController{
     public function create(Request $request, Response $response, $args)
     {
         $view = Twig::fromRequest($request);
-        $params = [];
+        $listOfRoles = $this->rolModel->getAll();
+
+        $params = [
+            'roles' => $listOfRoles,
+        ];
         return $view->render($response, "users/create.html.twig", $params);   
     }
 
     /**
-     * Guarda los datos ingresados del formulario
+     * Guarda los datos ingresados del formulario create
      * 
      */
     public function store(Request $request, Response $response, $args)
     {
-        //
+        $body = $request->getParsedBody();
+        $user = new User( $body['rol'], $body['username'], $body['password'], '', $body['estatus'] );
+
+        $addNewUser = $this->userModel->insertUser($user);
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('edit_user', ['id' => $addNewUser]);
+
+        return $response->withHeader('Location', $url)->withStatus(302);
     }
 
     /**

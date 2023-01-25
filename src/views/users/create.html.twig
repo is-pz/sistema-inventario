@@ -39,7 +39,10 @@
 					<div class="mb-3">
 						<label for="rol" class="form-label">Rol: <span class="text-danger" style="font-size:20px;">*</span></label>
 						<select class="form-select" aria-label="rol" id="rol" name="rol">
-							<option value="" selected></option>
+							<option selected disabled>Seleccione un rol</option>
+							{% for rol in roles %}
+								<option value="{{ rol.id }}" >  {{ rol.nombreRol   }} </option>
+							{% endfor %}
 						</select>
 					</div>
 					<div class="mb-3">

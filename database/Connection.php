@@ -28,8 +28,10 @@ class Connection {
     private function make_connection(){
         try{
             $connection = new \PDO('mysql:host=localhost;dbname=sistema_inv', 'root', '');
-
-            $setNames = $connection->prepare("SET NAMES 'utf-8'");
+           
+            $connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            
+            $setNames = $connection->prepare("SET NAMES 'utf8'");
             $setNames->execute();
 
             self::$connection = $connection;
