@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-
+use App\Models\RolesModel;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
@@ -12,10 +12,12 @@ use App\Models\UserModel;
 class UsersController{
     
     private $userModel;
+    private $rolModel;
 
     function __construct()
     {
         $this->userModel = new UserModel();
+        $this->rolModel = new RolesModel();
     }
 
     /**
@@ -26,9 +28,11 @@ class UsersController{
         $view = Twig::fromRequest($request);
         
         $listOfUsers = $this->userModel->getAll();
+        $listOfRoles = $this->rolModel->getAll();
 
         $params = [
             'users' => $listOfUsers,
+            'roles' => $listOfRoles,
         ];
         return $view->render($response, "users/index.html.twig", $params);   
      }
