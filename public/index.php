@@ -29,12 +29,17 @@ $app->get("/", [HomeController::class, 'index'])->setName('home');
 $app->group('/user', function (RouteCollectorProxy $group) {
     $group->get("", [UsersController::class, 'index'])->setName('users');
 
-    $group->get("/create", [UsersController::class, 'index'])->setName('create_user'); //show
+    $group->get("/create", [UsersController::class, 'create'])->setName('create_user'); //create
 
-    $group->post("/store", [UsersController::class, 'index'])->setName('create_user'); //store
+    $group->get("/{id}", [UsersController::class, 'show'])->setName('show_user'); //show
+
+    $group->get("/edit/{id}", [UsersController::class, 'edit'])->setName('edit_user'); //edit
     
+    $group->post("/store", [UsersController::class, 'store'])->setName('store_user'); //store
 
+    $group->post("/update/{id}", [UsersController::class, 'update'])->setName('update_user'); //update
 
+    $group->post("/delete/{id}", [UsersController::class, 'destroy'])->setName('delete_user'); //destroy
 });
 
 
