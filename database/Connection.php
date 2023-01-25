@@ -5,8 +5,8 @@ namespace Database;
 use PDOException;
 
 class Connection {
-    private static object $instance;
-    private static object $connection;
+    private static  $instance;
+    private static  $connection;
 
 
     private function __construct()
@@ -15,7 +15,7 @@ class Connection {
     }
 
     //Regresa instancia de la clase 
-    public static function getInstance(): object{
+    public static function getInstance(){
         //Verifica si es una instancia de si misma
         if(!self::$instance instanceof self){
             self::$instance = new self();
@@ -25,22 +25,22 @@ class Connection {
     }
 
     //Conexion con la base de datos
-    private function make_connection(): void{
+    private function make_connection(){
         try{
             $connection = new \PDO('mysql:host=localhost;dbname=sistema_inv', 'root', '');
 
             $setNames = $connection->prepare("SET NAMES 'utf-8'");
             $setNames->execute();
 
-            $this->connection = $connection;
+            self::$connection = $connection;
         }catch(\PDOException $e){
             die("Error de conexión {$e->getMessage()}");
         }
     }
 
     //Regresa la conexion con la base de datos
-    public function getDatabaseInstance(): object{
-        return $this->connection;
+    public function getDatabaseInstance(){
+        return self::$connection;
     }
 
 }
