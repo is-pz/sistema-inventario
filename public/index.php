@@ -43,8 +43,20 @@ $app->group('/user', function (RouteCollectorProxy $group) {
 });
 
 
+$app->group('/roles', function (RouteCollectorProxy $group) {
+    $group->get("", [RolesController::class, 'index'])->setName('roles');
 
-$app->get("/roles", [RolesController::class, 'index'])->setName('roles');
+    $group->get("/create", [RolesController::class, 'create'])->setName('create_rol'); //create
+
+    $group->get("/edit/{id}", [RolesController::class, 'edit'])->setName('edit_rol'); //edit
+    
+    $group->post("/store", [RolesController::class, 'store'])->setName('store_rol'); //store
+
+    $group->post("/update/{id}", [RolesController::class, 'update'])->setName('update_rol'); //update
+
+    $group->post("/delete", [RolesController::class, 'destroy'])->setName('delete_rol'); //destroy
+});
+
 
 $app->get("/categories", [CategoriesController::class, 'index'])->setName('categories');
 

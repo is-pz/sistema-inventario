@@ -109,8 +109,6 @@ class UserModel
 
         }catch(\PDOException $e){
             self::$mbd->rollBack();
-            var_dump($e->getMessage());
-            die;
             return "Error: {$e->getMessage()}";
         }
     }

@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
@@ -11,6 +10,7 @@ use Slim\Routing\RouteContext;
 //Moodelos
 use App\Models\UserModel;
 use App\Models\RolesModel;
+use App\Models\User;
 
 class UsersController{
     

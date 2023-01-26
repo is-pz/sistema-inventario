@@ -11,9 +11,12 @@
                         Usuarios
                     </h5>
                     
-                    <div class="col">
-                        <a href="{{ full_url_for("create_user") }}" class="btn btn-primary">
+                    <div class="col row ">
+                        <a href="{{ full_url_for("create_user") }}" class="col-lg-5 btn btn-primary">
 							Agregar un nuevo usuario
+                        </a>
+						 <a href="{{ full_url_for("roles") }}" class="col-lg-5 btn btn-primary">
+							Administrar roles 
                         </a>
                     </div>
 				</div>
