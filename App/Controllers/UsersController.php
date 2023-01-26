@@ -9,7 +9,7 @@ use Slim\Routing\RouteContext;
 
 //Moodelos
 use App\Models\UserModel;
-use App\Models\RolesModel;
+use App\Models\RolModel;
 use App\Models\User;
 
 class UsersController{
@@ -20,7 +20,7 @@ class UsersController{
     function __construct()
     {
         $this->userModel = new UserModel();
-        $this->rolModel = new RolesModel();
+        $this->rolModel = new RolModel();
     }
 
     /**

@@ -7,12 +7,12 @@
 			<div class="card-body">
 				<div class="card-title col-lg-12 row">
                     <h5 class="col">
-                        <i class="bi bi-people-fill"></i>
-                        Crear un nuevo rol
+						<i class="bi bi-tags-fill"></i>
+                        Crear una nueva categoria
                     </h5>
                     
                     <div class="col">
-                        <a href="{{ full_url_for("roles") }}" class="btn btn-primary">
+                        <a href="{{ full_url_for("categories") }}" class="btn btn-primary">
 							Regresar
                         </a>
                     </div>
@@ -22,15 +22,15 @@
 					<p>Campos requeridos <span class="text-danger" style="font-size:20px;">*</span></p>
 				</div>
 
-				<form action="{{ full_url_for('store_rol') }}" method="POST" >
+				<form action="{{ full_url_for('store_category') }}" method="POST" >
 
 					<div class="mb-3">
-						<label for="nombreRol" class="form-label">Nombre del rol: <span class="text-danger" style="font-size:20px;">*</span></label>
-						<input type="text" name="nombreRol" class="form-control" id="nombreRol" aria-describedby="nombreRol" require>
+						<label for="nombreCategoria" class="form-label">Nombre del rol: <span class="text-danger" style="font-size:20px;">*</span></label>
+						<input type="text" name="nombreCategoria" class="form-control" id="nombreCategoria" aria-describedby="nombreCategoria" require>
 					</div>
 					<div class="mb-3">
-						<label for="descripcionRol" class="form-label">Descripcion del rol: </label>
-						<input type="text" name="descripcionRol" class="form-control" id="descripcionRol" require>
+						<label for="descripcionCategoria" class="form-label">Descripcion del rol: </label>
+						<input type="text" name="descripcionCategoria" class="form-control" id="descripcionCategoria" require>
 					</div>
 					<div class="mb-3">
 						<label for="estatus" class="form-label">Estatus: </label>

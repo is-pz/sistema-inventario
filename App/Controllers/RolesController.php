@@ -10,7 +10,7 @@ use Slim\Routing\RouteContext;
 
 
 //Modelos
-use App\Models\RolesModel;
+use App\Models\RolModel;
 use App\Models\Rol;
 
 class RolesController{
@@ -19,7 +19,7 @@ class RolesController{
 
     function __construct()
     {
-        $this->rolModel = new RolesModel();
+        $this->rolModel = new RolModel();
     }
     
     public function index(Request $request, Response $response, $args){

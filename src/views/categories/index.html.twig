@@ -6,16 +6,19 @@
 		<div class="card" style="width: 100%;">
 			<div class="card-body">
 				<div class="card-title col-lg-12 row">
-                    <h5 class="col">
-                        <i class="bi bi-people-fill"></i>
-                        Categorias
-                    </h5>
-                    
-                    <div class="col">
-                        <a href="{{ full_url_for("categories") }}" class="btn btn-primary">
+					<h5 class="col">
+						<i class="bi bi-tags-fill"></i>
+						Categorias
+					</h5>
+
+					<div class="col">
+						<a href="{{ full_url_for("home") }}" class="btn btn-primary">
+							Regresar
+						</a>
+						<a href="{{ full_url_for("create_category") }}" class="btn btn-primary">
 							Agregar una nueva categoria
-                        </a>
-                    </div>
+						</a>
+					</div>
 				</div>
 				<table class="table table-striped">
 					<thead>
@@ -28,9 +31,48 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td></td>
-						</tr>
+						{% set count = 1 %}
+						{% for category in categories %}
+							<tr>
+								<td>
+									{{ count }}
+								</td>
+
+								<td>
+									{{ category.nombreCategoria }}
+								</td>
+
+								<td>
+									{{ category.descripcionCategoria }}
+								</td>
+
+								<td>
+									{% if category.active == 1 %}
+										<p>
+											Activo
+										</p>
+									{% else %}
+										<p>
+											Inactivo
+										</p>
+									{% endif %}
+								</td>
+								<td>
+									<div class="row">
+										<div class="col-lg-12">
+											<a href="{{ full_url_for('edit_category', { 'id': category.id }) }}" class="col-lg-5 btn btn-warning">Editar</a>
+											<div class="col-lg-5 ">
+												<form class="" method="POST" action="{{ full_url_for('delete_category') }}">
+													<input type="hidden" name="id" value="{{ category.id }}">
+													<button class=" btn btn-danger">Eliminar</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							{% set count = count + 1 %}
+						{% endfor %}
 					</tbody>
 				</table>
 			</div>

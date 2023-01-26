@@ -6,13 +6,29 @@ namespace App\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
+use Slim\Routing\RouteContext;
 
+
+//Modelos
+use App\Models\CategoryModel;
+use App\Models\Category;
 
 class CategoriesController{
+    private $categoryModel;
     
+    function __construct()
+    {
+        $this->categoryModel = new CategoryModel();
+    }
+
+
     public function index(Request $request, Response $response, $args){
         $view = Twig::fromRequest($request);
-        $params = [];
+        $categories = $this->categoryModel->getAll();
+
+        $params = [
+            'categories' => $categories
+        ];
         return $view->render($response, "categories/index.html.twig", $params);   
      }
 
@@ -22,7 +38,9 @@ class CategoriesController{
      */
     public function create(Request $request, Response $response, $args)
     {
-        
+        $view = Twig::fromRequest($request);
+        $params = [];
+        return $view->render($response, "categories/create.html.twig", $params);   
     }
 
     /**
@@ -31,17 +49,26 @@ class CategoriesController{
      */
     public function store(Request $request, Response $response, $args)
     {
-        
+        $body = $request->getParsedBody();
+
+        $category = new Category($body['nombreCategoria'], $body['descripcionCategoria'], $body['estatus']);
+
+        $this->categoryModel->insertCategory($category);
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('categories');
+
+        return $response->withHeader('Location', $url)->withStatus(302);
     }
 
     /**
      * Muestra un recurso en especifico
      *
-     */
-    public function show(Request $request, Response $response, $args)
-    {
-        
+     public function show(Request $request, Response $response, $args)
+     {
+         
     }
+    */
 
     /**
      * Muestra un formulario para editar un recurso
@@ -49,7 +76,14 @@ class CategoriesController{
      */
     public function edit(Request $request, Response $response, $args)
     {
-        
+        $view = Twig::fromRequest($request);
+        $id = $args['id'];
+        $category = $this->categoryModel->getOne($id);
+
+        $params = [
+            'category' => $category
+        ];
+        return $view->render($response, "categories/edit.html.twig", $params);   
     }
 
     /**
@@ -58,7 +92,17 @@ class CategoriesController{
      */
     public function update(Request $request, Response $response, $args)
     {
-        
+        $body = $request->getParsedBody();
+        $id = $args['id'];
+        $category = new Category($body['nombreCategoria'], $body['descripcionCategoria'], $body['estatus']);
+
+
+        $this->categoryModel->updateCategory($category, $id);
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('categories');
+
+        return $response->withHeader('Location', $url)->withStatus(302);
     }
 
     /**
@@ -67,6 +111,14 @@ class CategoriesController{
      */
     public function destroy(Request $request, Response $response, $args)
     {
-        
+        $body = $request->getParsedBody();
+
+        $id = $body['id'];
+        $this->categoryModel->deleteCategory($id);
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('categories');
+
+        return $response->withHeader('Location', $url)->withStatus(302);
     }
 }

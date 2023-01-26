@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Database\Connection;
 
-class RolesModel
+class RolModel
 {
     private static $mbd;
     
