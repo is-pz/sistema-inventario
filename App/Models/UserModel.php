@@ -19,7 +19,7 @@ class UserModel
         $stmt = self::$mbd->prepare($sql);
         $stmt->execute();
 
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll();
 
         return $result;
     }
@@ -30,7 +30,7 @@ class UserModel
         $stmt->bindValue(":id", $id);
         $stmt->execute();
 
-        $result = $stmt->fetchAll();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         
         return $result;
     }
@@ -94,6 +94,25 @@ class UserModel
             return "Error: {$e->getMessage()}";
         }
 
+    }
+
+    public function deleteUser($id){
+        try{
+            self::$mbd->beginTransaction();
+
+            $sql = 'DELETE FROM usuarios WHERE id = :id';
+            $stmt = self::$mbd->prepare($sql);
+            $stmt->bindValue(":id", $id);
+            $stmt->execute();
+
+            self::$mbd->commit();
+
+        }catch(\PDOException $e){
+            self::$mbd->rollBack();
+            var_dump($e->getMessage());
+            die;
+            return "Error: {$e->getMessage()}";
+        }
     }
 }
 

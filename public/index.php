@@ -39,7 +39,7 @@ $app->group('/user', function (RouteCollectorProxy $group) {
 
     $group->post("/update/{id}", [UsersController::class, 'update'])->setName('update_user'); //update
 
-    $group->post("/delete/{id}", [UsersController::class, 'destroy'])->setName('delete_user'); //destroy
+    $group->post("/delete", [UsersController::class, 'destroy'])->setName('delete_user'); //destroy
 });
 
 

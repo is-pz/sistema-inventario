@@ -2,14 +2,15 @@
 
 namespace App\Controllers;
 
-use App\Models\RolesModel;
 use App\Models\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
 use Slim\Routing\RouteContext;
 
+//Moodelos
 use App\Models\UserModel;
+use App\Models\RolesModel;
 
 class UsersController{
     
@@ -79,7 +80,15 @@ class UsersController{
     public function show(Request $request, Response $response, $args)
     {
         $view = Twig::fromRequest($request);
-        $params = [];
+
+        $id = $args['id'];
+        $datoUsuarios = $this->userModel->getOne($id);
+        $listOfRoles = $this->rolModel->getAll();
+
+         $params = [
+            'usuario' => $datoUsuarios,
+            'roles' => $listOfRoles,
+        ];
         return $view->render($response, "users/show.html.twig", $params);   
     }
 
@@ -96,7 +105,7 @@ class UsersController{
         $listOfRoles = $this->rolModel->getAll();
 
         $params = [
-            'usuario' => $datoUsuarios[0],
+            'usuario' => $datoUsuarios,
             'roles' => $listOfRoles,
         ];
         return $view->render($response, "users/edit.html.twig", $params);   
@@ -126,7 +135,15 @@ class UsersController{
      */
     public function destroy(Request $request, Response $response, $args)
     {
-        //
+        $body = $request->getParsedBody();
+
+        $id = $body['id'];
+        $this->userModel->deleteUser($id);
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('users');
+
+        return $response->withHeader('Location', $url)->withStatus(302);
     }
 
 }
