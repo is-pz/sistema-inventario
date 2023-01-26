@@ -42,7 +42,6 @@ class UsersController{
 
     /**
      * Muestra un formulario para la creacion de un recurso
-     *
      * 
      */
     public function create(Request $request, Response $response, $args)
@@ -91,8 +90,16 @@ class UsersController{
     public function edit(Request $request, Response $response, $args)
     {
         $view = Twig::fromRequest($request);
-        $params = [];
-        return $view->render($response, "users/create.html.twig", $params);   
+        
+        $id = $args['id'];
+        $datoUsuarios = $this->userModel->getOne($id);
+        $listOfRoles = $this->rolModel->getAll();
+
+        $params = [
+            'usuario' => $datoUsuarios[0],
+            'roles' => $listOfRoles,
+        ];
+        return $view->render($response, "users/edit.html.twig", $params);   
     }
 
     /**
@@ -101,7 +108,16 @@ class UsersController{
      */
     public function update(Request $request, Response $response, $args)
     {
-        //
+        $body = $request->getParsedBody();
+        $user = new User( $body['rol'], $body['username'], $body['password'], '', $body['estatus'] );
+        $id = $args['id'];
+
+        $this->userModel->updateUser($user, $id);
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('edit_user', ['id' => $id]);
+
+        return $response->withHeader('Location', $url)->withStatus(302);
     }
 
     /**

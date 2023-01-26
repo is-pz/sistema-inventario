@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+
+{% block container %}
+	<div class="col-lg-8 mx-auto mt-3 p-3">
+		<div class="card" style="width: 100%;">
+			<div class="card-body">
+				<div class="card-title col-lg-12 row">
+                    <h5 class="col">
+                        <i class="bi bi-people-fill"></i>
+                        Editar usuario
+                    </h5>
+                    
+                    <div class="col">
+                        <a href="{{ full_url_for("users") }}" class="btn btn-primary">
+							Regresar
+                        </a>
+                    </div>
+				</div>
+
+				<div>
+					<p>Campos requeridos <span class="text-danger" style="font-size:20px;">*</span></p>
+				</div>
+
+				<form action="{{ full_url_for('update_user', {'id': usuario.id}) }}" method="POST" enctype='multipart/form-data'>
+
+					<div class="mb-3">
+						<label for="imageUser" class="form-label">Imagen de usuario:</label>
+						<input type="file" name="imageUser" class="form-control" id="imageUser" aria-describedby="imageUser">
+					</div>
+					<div class="mb-3">
+						<label for="username" class="form-label">Nombre de usuario: <span class="text-danger" style="font-size:20px;">*</span></label>
+						<input type="text" name="username" value="{{ usuario.name }}" class="form-control" id="username" aria-describedby="username" require>
+					</div>
+					<div class="mb-3">
+						<label for="password" class="form-label">Contraseña: <span class="text-danger" style="font-size:20px;">*</span></label>
+						<input type="password" value="{{ usuario.password }}" name="password" class="form-control" id="password" require>
+					</div>
+					<div class="mb-3">
+						<label for="rol" class="form-label">Rol: <span class="text-danger" style="font-size:20px;">*</span></label>
+						<select class="form-select" aria-label="rol" id="rol" name="rol">
+							<option selected disabled>Seleccione un rol</option>
+							{% for rol in roles %}
+								<option value="{{ rol.id }}"  {% if rol.id == usuario.idRol %} selected {% endif %}>  
+									{{ rol.nombreRol }}  
+								 </option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="mb-3">
+						<label for="estatus" class="form-label">Estatus: </label>
+						<select class="form-select" aria-label="estatus" id="estatus" name="estatus">
+							<option value="1" {% if usuario.active == 1 %} selected {% endif %}>Activo</option>
+							<option value="0" {% if usuario.active == 0 %} selected {% endif %}>Inactivo</option>
+						</select>
+					</div>
+
+					<button type="submit" class="btn btn-success">Guardar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -19,8 +19,19 @@ class UserModel
         $stmt = self::$mbd->prepare($sql);
         $stmt->execute();
 
-        $result = $stmt->fetchAll();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
+        return $result;
+    }
+
+    public function getOne($id){
+        $sql = 'SELECT * FROM usuarios WHERE id = :id';
+        $stmt = self::$mbd->prepare($sql);
+        $stmt->bindValue(":id", $id);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+        
         return $result;
     }
 
@@ -49,7 +60,37 @@ class UserModel
             return $id;
 
         }catch(\PDOException $e){
-            self::$mbd->rollBasck();
+            self::$mbd->rollBack();
+            return "Error: {$e->getMessage()}";
+        }
+
+    }
+
+    public function updateUser(User $user, $id){
+        try{
+            self::$mbd->beginTransaction();
+            
+            $sql = 'UPDATE usuarios SET idRol= :idRol, name= :name, password= :password, imageUser= :imageUser, lastLogin= :lastLogin, active= :active WHERE id= :idUser';
+            
+
+            $stmt = self::$mbd->prepare($sql);
+
+            $stmt->bindValue(":idRol", $user->idRol);
+            $stmt->bindValue(":name", $user->name);
+            $stmt->bindValue(":password", $user->password);
+            $stmt->bindValue(":imageUser", $user->imageUser);
+            $stmt->bindValue(":lastLogin", $user->lastLogin);
+            $stmt->bindValue(":active", $user->active);
+            $stmt->bindValue(":idUser", $id);
+            
+            $stmt->execute();
+
+            self::$mbd->commit();
+
+            return $id;
+
+        }catch(\PDOException $e){
+            self::$mbd->rollBack();
             return "Error: {$e->getMessage()}";
         }
 
