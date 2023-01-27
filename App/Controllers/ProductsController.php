@@ -8,15 +8,34 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
 use Slim\Routing\RouteContext;
 
+//Modelos
+use App\Models\ProductModel;
+use App\Models\Product;
+use App\Models\CategoryModel;
+
 class ProductsController{
     
+    private $productModel;
+    private $categoryModel;
+
+    function __construct()
+    {
+        $this->productModel = new ProductModel();
+        $this->categoryModel = new CategoryModel();
+    }
+
     /**
      * Muesta una lista de recursos
      *
      */
     public function index(Request $request, Response $response, $args){
         $view = Twig::fromRequest($request);
-        $params = [];
+        $products = $this->productModel->getAll();
+        $categories = $this->categoryModel->getAll();
+        $params = [
+            'products' => $products,
+            'categories' => $categories
+        ];
         return $view->render($response, "products/index.html.twig", $params);   
     }
 
@@ -27,7 +46,12 @@ class ProductsController{
      */
     public function create(Request $request, Response $response, $args)
     {
-        
+        $view = Twig::fromRequest($request);
+        $categories = $this->categoryModel->getAll();
+        $params = [
+            'categories' => $categories,
+        ];
+        return $view->render($response, "products/create.html.twig", $params);  
     }
 
     /**
@@ -36,7 +60,17 @@ class ProductsController{
      */
     public function store(Request $request, Response $response, $args)
     {
-        
+        $body = $request->getParsedBody();
+
+        $product = new Product($body['categoria'], $body['numeroSerie'], $body['nombreProducto'], $body['precioCosto'], $body['precioPublico'], $body['descripcionProducto'], $body['enStock'], $body['estatus']);
+
+
+        $this->productModel->insertProduct($product);
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('products');
+
+        return $response->withHeader('Location', $url)->withStatus(302);
     }
 
     /**
@@ -45,7 +79,15 @@ class ProductsController{
      */
     public function show(Request $request, Response $response, $args)
     {
-        
+        $view = Twig::fromRequest($request);
+        $id = $args['id'];
+        $product = $this->productModel->getOne($id);
+        $category = $this->categoryModel->getOne($product['idCategoria']);
+        $params = [
+            'product' => $product,
+            'category' => $category,
+        ];
+        return $view->render($response, "products/show.html.twig", $params);  
     }
 
     /**
@@ -54,7 +96,15 @@ class ProductsController{
      */
     public function edit(Request $request, Response $response, $args)
     {
-        
+        $view = Twig::fromRequest($request);
+        $id = $args['id'];
+        $product = $this->productModel->getOne($id);
+        $categories = $this->categoryModel->getAll();
+        $params = [
+            'product' => $product,
+            'categories' => $categories,
+        ];
+        return $view->render($response, "products/edit.html.twig", $params);  
     }
 
     /**
@@ -63,7 +113,18 @@ class ProductsController{
      */
     public function update(Request $request, Response $response, $args)
     {
-        
+        $body = $request->getParsedBody();
+
+        $id =$args['id'];
+
+        $product = new Product($body['categoria'], $body['numeroSerie'], $body['nombreProducto'], $body['precioCosto'], $body['precioPublico'], $body['descripcionProducto'], $body['enStock'], $body['estatus']);
+
+        $this->productModel->updateProduct($product, $id);
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('products');
+
+        return $response->withHeader('Location', $url)->withStatus(302);
     }
 
     /**
@@ -72,7 +133,15 @@ class ProductsController{
      */
     public function destroy(Request $request, Response $response, $args)
     {
-        
+        $body = $request->getParsedBody();
+
+        $id = $body['id'];
+        $this->productModel->deleteProduct($id);
+
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('products');
+
+        return $response->withHeader('Location', $url)->withStatus(302);
     }
 
  

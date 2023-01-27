@@ -1,7 +1,5 @@
 <?php
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
@@ -71,8 +69,21 @@ $app->group('/categories', function (RouteCollectorProxy $group) {
     $group->post("/delete", [CategoriesController::class, 'destroy'])->setName('delete_category'); //destroy
 });
 
+$app->group('/products', function (RouteCollectorProxy $group) {
+    $group->get("", [ProductsController::class, 'index'])->setName('products');
 
-$app->get("/products", [ProductsController::class, 'index'])->setName('products');
+    $group->get("/create", [ProductsController::class, 'create'])->setName('create_product'); //create
+
+    $group->get("/{id}", [ProductsController::class, 'show'])->setName('show_product'); //show
+
+    $group->get("/edit/{id}", [ProductsController::class, 'edit'])->setName('edit_product'); //edit
+    
+    $group->post("/store", [ProductsController::class, 'store'])->setName('store_product'); //store
+
+    $group->post("/update/{id}", [ProductsController::class, 'update'])->setName('update_product'); //update
+
+    $group->post("/delete", [ProductsController::class, 'destroy'])->setName('delete_product'); //destroy
+});
 
 $app->get("/sells", [SellsController::class, 'index'])->setName('sells');
 

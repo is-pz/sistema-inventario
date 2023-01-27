@@ -12,7 +12,10 @@
                     </h5>
                     
                     <div class="col">
-                        <a href="{{ full_url_for("products") }}" class="btn btn-primary">
+					 	<a href="{{ full_url_for("home") }}" class="btn btn-primary">
+							Regresar
+                        </a>
+                        <a href="{{ full_url_for("create_product") }}" class="btn btn-primary">
 							Agregar un nuevo producto
                         </a>
                     </div>
@@ -22,19 +25,59 @@
 						<tr>
 							<th>#</th>
 							<th>Nombre del producto</th>
-							<th>Descripcion</th>
 							<th>Precio de costo</th>
 							<th>Precio al publico</th>
 							<th>En stock</th>
 							<th>Categoria</th>
-							<th>No. Serie</th>
+							<th>Estatus</th>
 							<th>Opciones</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td></td>
-						</tr>
+						{% set count = 1 %}
+						{% for product in products %}
+							<tr>
+								<td> {{ count }} </td>
+
+								<td><p> {{ product.nombreProducto }} </p></td>
+								<td><p> {{ product.precioCosto }} </p></td>
+								<td><p> {{ product.precioPublico }} </p></td>
+								<td><p> {{ product.stock }} </p></td>
+								<td>
+									{% for category in categories %}
+										{% if category.id == product.idCategoria %}
+											<p> {{ category.nombreCategoria }} </p>
+										{% endif %}
+									{% endfor %}
+								</td>
+								<td>
+									{% if product.active == 1 %}
+										<p>
+											Activo
+										</p>
+									{% else %}
+										<p>
+											Inactivo
+										</p>
+									{% endif %}
+								</td>
+								<td>
+									<div class="row">
+										<div class="col-lg-12">
+											<a href="{{ full_url_for('show_product', { 'id': product.id }) }}" class=" btn btn-primary">Ver producto</a>
+											<div class=" ">
+												<form class="" method="POST" action="{{ full_url_for('delete_product') }}">
+													<input type="hidden" name="id" value="{{ product.id }}">
+													<button class=" btn btn-danger">Eliminar</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</td>
+
+							</tr>
+							{% set count = count + 1 %}
+						{% endfor %}
 					</tbody>
 				</table>
 			</div>

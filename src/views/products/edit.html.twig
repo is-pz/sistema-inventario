@@ -1,0 +1,75 @@
+{% extends "base.html.twig" %}
+
+
+{% block container %}
+	<div class="col-lg-8 mx-auto mt-3 p-3">
+		<div class="card" style="width: 100%;">
+			<div class="card-body">
+				<div class="card-title col-lg-12 row">
+                    <h5 class="col">
+						<i class="bi bi-tags-fill"></i>
+                        Agregar un nuevo producto
+                    </h5>
+                    
+                    <div class="col">
+                        <a href="{{ full_url_for("show_product", {'id': product.id}) }}" class="btn btn-primary">
+							Regresar
+                        </a>
+                    </div>
+				</div>
+
+				<div>
+					<p>Campos requeridos <span class="text-danger" style="font-size:20px;">*</span></p>
+				</div>
+
+				<form action="{{ full_url_for('update_product', {'id': product.id}) }}" method="POST" class="row" >
+
+					<div class="mb-3 col-lg-6">
+						<label for="nombreProducto" class="form-label">Nombre del producto: <span class="text-danger" style="font-size:20px;">*</span></label>
+						<input type="text"  value="{{ product.nombreProducto }}" name="nombreProducto" class="form-control" id="nombreProducto" aria-describedby="nombreProducto" require>
+					</div>
+					<div class="mb-3 col-lg-6">
+						<label for="nuemeroSerie" class="form-label">No. De serie: </label>
+						<input type="text" value="{{ product.noSerie }}" name="nuemeroSerie" class="form-control" id="nuemeroSerie" aria-describedby="nuemeroSerie" >
+					</div>
+					<div class="mb-3 col-lg-6">
+						<label for="descripcionProducto" class="form-label">Descripcion del producto: <span class="text-danger" style="font-size:20px;">*</span></label>
+						<input type="text" value="{{ product.descripcionProducto }}" name="descripcionProducto" class="form-control" id="descripcionProducto" require>
+					</div>
+					<div class="mb-3 col-lg-6">
+						<label for="precioCosto" class="form-label">Precio de costo: <span class="text-danger" style="font-size:20px;">*</span></label>
+						<input type="text" value="{{ product.precioCosto }}" placeholder="$" name="precioCosto" class="form-control" id="precioCosto" require>
+					</div>
+					<div class="mb-3 col-lg-6">
+						<label for="precioPublico" class="form-label">Precio al publico: <span class="text-danger" style="font-size:20px;">*</span></label>
+						<input type="text" value="{{ product.precioPublico }}" placeholder="$" name="precioPublico" class="form-control" id="precioPublico" require>
+					</div>
+					<div class="mb-3 col-lg-6">
+						<label for="enStock" class="form-label">En stock: <span class="text-danger" style="font-size:20px;">*</span></label>
+						<input type="text" value="{{ product.stock }}" placeholder="No. De articulos" name="enStock" class="form-control" id="enStock" require>
+					</div>
+					<div class="mb-3 col-lg-6">
+						<label for="categoria" class="form-label">Categoria: <span class="text-danger" style="font-size:20px;">*</span></label>
+						<select class="form-select" aria-label="categoria" id="categoria" name="categoria">
+							{% for category in categories %}
+								<option value="{{ category.id }}"  {% if category.id == product.idCategoria %} selected {% endif %}>  
+									{{ category.nombreCategoria }}  
+								</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="mb-3 col-lg-6">
+						<label for="estatus" class="form-label">Estatus: </label>
+						<select class="form-select" aria-label="estatus" id="estatus" name="estatus">
+							<option value="1" {% if product.active == 1 %} selected {% endif %}>Activo</option>
+							<option value="0" {% if product.active == 0 %} selected {% endif %}>Inactivo</option>
+						</select>
+					</div>
+					<div class="col-lg-4 mx-auto">
+						<button type="submit" class="btn btn-success col-lg-12">Agregar</button>
+					<div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
