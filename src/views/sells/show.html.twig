@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+
+
+{% block container %}
+	<div class="col-lg-8 mx-auto mt-3 p-3">
+		<div class="card col-lg-12">
+			<div class="card-body">
+				<div class="card-title col-lg-12 row  ">
+                    <h5 class="col">
+						<i class="bi bi-currency-dollar"></i>
+                        Revision de venta
+                    </h5>
+                    
+                    <div class="col">
+                        <a href="{{ full_url_for("sells") }}" class="btn btn-primary">
+							Regresar
+                        </a>
+						 <a href="{{ full_url_for("edit_sell", {'id': sell.id}) }}" class="btn btn-warning">
+							Editar
+                        </a>
+                    </div>
+				</div>
+
+				<div class="row mt-3" >
+
+					<div class="mb-3 col-lg-6">
+						<p>Nombre del producto: <strong> {{ sell.nombreProducto }} </strong> </p>
+					</div>
+					<div class="mb-3 col-lg-6">						
+						<p>Descripción de la venta: <strong> {{ sell.descripcionVenta }} </strong> </p>
+					</div>
+					<div class="mb-3 col-lg-6">
+						<p>Precio de la venta: <strong> ${{ sell.precioProducto }} </strong> </p>
+					</div>
+					<div class="mb-3 col-lg-6">
+						<p>Precio de costo: <strong> ${{ sell.precioVenta }} </strong> </p>
+					</div>
+					<div class="mb-3 col-lg-6">
+						<p>Usuario que realizo la venta: <strong> {{ user.name }} </strong> </p>
+					</div>
+					<div class="mb-3 col-lg-6">
+						<p>Fecha de la venta: <strong> {{ sell.sell_at }} </strong> </p>
+					</div>
+					<form class="mt-3" method="POST" action="{{ full_url_for('delete_sell') }}">
+						<input type="hidden" value="{{ sell.id }}" name="idSell">
+						<button type="submit" class="btn btn-danger rounded" >Eliminar venta</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

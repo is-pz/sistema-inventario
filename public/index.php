@@ -85,7 +85,21 @@ $app->group('/products', function (RouteCollectorProxy $group) {
     $group->post("/delete", [ProductsController::class, 'destroy'])->setName('delete_product'); //destroy
 });
 
-$app->get("/sells", [SellsController::class, 'index'])->setName('sells');
+$app->group('/sells', function (RouteCollectorProxy $group) {
+    $group->get("", [SellsController::class, 'index'])->setName('sells');
+
+    $group->get("/create", [SellsController::class, 'create'])->setName('create_sell'); //create
+
+    $group->get("/{id}", [SellsController::class, 'show'])->setName('show_sell'); //show
+
+    $group->get("/edit/{id}", [SellsController::class, 'edit'])->setName('edit_sell'); //edit
+    
+    $group->post("/store", [SellsController::class, 'store'])->setName('store_sell'); //store
+
+    $group->post("/update/{id}", [SellsController::class, 'update'])->setName('update_sell'); //update
+
+    $group->post("/delete", [SellsController::class, 'destroy'])->setName('delete_sell'); //destroy
+});
 
 
 $app->run();
