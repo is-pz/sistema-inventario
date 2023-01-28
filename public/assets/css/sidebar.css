@@ -1,12 +1,23 @@
-#container-sidebar{
+#container-main-sidebar{
     height: 100vh;
 }
-#ul-sidebar {
-    text-decoration: none;  
-    list-style: none;
+
+#container-main-sidebar #container-sidebar .container-link{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 15px;
+    height: 60px;   
 }
 
-#ul-sidebar li button a{
+#container-main-sidebar #container-sidebar div a{
     text-decoration: none; 
+    color:white;
+}
+
+#container-main-sidebar #container-sidebar div:hover{
+    background-color: rgb(160, 159, 159); 
+}
+
+#container-main-sidebar #container-sidebar div:hover a{
     color: white;
 }
