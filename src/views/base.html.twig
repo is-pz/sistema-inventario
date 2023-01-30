@@ -17,18 +17,19 @@
 <body>
     <div class="container-fluid" style="padding-left:0;">
         <div class="row">
-            <div class="col-lg-2 pe-0">
+            <div class="col-lg-2 ">
                 {% include "sidebar.html.twig" %}
             </div>
-            <div class="col-lg-10 ps-0">
+            <div class="col-lg-10 ">
                 <div class="row">
-                    <div class="col-lg-12">
-                        {% include "navbar.html.twig" %}
-                    </div>
-                    <div class="col-lg-12">
-                        {% block container %}
-                        {% endblock %}        
-                    </div>
+                    {# Navbar #}
+                    {% include "navbar.html.twig" %}
+                    {# End Navbar #}
+
+                    {# Content page #}
+                    {% block container %}
+                    {% endblock %}        
+                    {# End Content Page #}
                 </div>
             </div>
         </div>
