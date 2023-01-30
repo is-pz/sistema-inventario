@@ -34,74 +34,7 @@ class RolModel
 
         return $result;
     }
-
-    public function insertRol(Rol $rol){
-        try{
-            self::$mbd->beginTransaction();
-            
-            $sql = 'INSERT INTO roles(nombreRol, descripcionRol, active) VALUES (:nombreRol, :descripcionRol, :active)';
-            
-
-            $stmt = self::$mbd->prepare($sql);
-
-            $stmt->bindValue(":nombreRol", $rol->nombreRol);
-            $stmt->bindValue(":descripcionRol", $rol->descripcionRol);
-            $stmt->bindValue(":active", $rol->active);
-
-            $stmt->execute();
-
-           
-            self::$mbd->commit();
-
-        }catch(\PDOException $e){
-            self::$mbd->rollBack();
-            return "Error: {$e->getMessage()}";
-        }
-    }
-
-    public function updateRol(Rol $rol, $id){
-        try{
-            self::$mbd->beginTransaction();
-            
-            $sql = 'UPDATE roles SET  nombreRol= :nombreRol, descripcionRol= :descripcionRol, active= :active WHERE id= :idRol';
-            
-
-            $stmt = self::$mbd->prepare($sql);
-
-            $stmt->bindValue(":idRol", $id);
-            $stmt->bindValue(":nombreRol", $rol->nombreRol);
-            $stmt->bindValue(":descripcionRol", $rol->descripcionRol);
-            $stmt->bindValue(":active", $rol->active);
-            
-            $stmt->execute();
-
-            self::$mbd->commit();
-
-            return $id;
-        }catch(\PDOException $e){
-            self::$mbd->rollBack();
-            return "Error: {$e->getMessage()}";
-        }
-    }
-
-    public function deleteRol($id){
-        try{
-            self::$mbd->beginTransaction();
-
-            $sql = 'DELETE FROM roles WHERE id = :id';
-            $stmt = self::$mbd->prepare($sql);
-            $stmt->bindValue(":id", $id);
-            $stmt->execute();
-
-            self::$mbd->commit();
-
-        }catch(\PDOException $e){
-            self::$mbd->rollBack();
-            return "Error: {$e->getMessage()}";
-        }
-    }
 }
-
 class Rol
 {
     public $nombreRol;
