@@ -113,6 +113,16 @@ class ProductModel
         }
     }
 
+    public function getLastAddedProducts(){
+        $sql = 'SELECT * FROM productos ORDER BY id LIMIT 3';
+        $stmt = self::$mbd->prepare($sql);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
 }
 
 class Product{

@@ -1,80 +1,66 @@
-<div class="col-lg-12">
-  <div class="row mx-auto">
-    <div class="col-lg-4 card-container">
-      <a href="{{ full_url_for('users') }}" >
-        <div
-          class="card text-white"
-          style="width: 18rem; background-color: #20c7a6; font-size: 20px"
-        >
-          <div class="card-body">
-            <div class="row mx-auto">
-              <div class="col-lg-3" >
-                <i class="bi bi-people-fill" style="font-size: 25px;"></i>
-              </div>
-              <div class="col-lg-9">
-                <p class="card-text">Usuarios</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-lg-4 card-container">
-      <a href="{{ full_url_for('categories') }}" >
-        <div
-          class="card text-white"
-          style="width: 18rem; background-color: #ff7857; font-size: 20px"
-        >
-          <div class="card-body">
-            <div class="row mx-auto">
-              <div class="col-lg-3">
-                <i class="bi bi-tags-fill" style="font-size: 25px;"></i>
-              </div>
-              <div class="col-lg-9">
-                <p class="card-text">Categorías</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-lg-4 card-container">
-      <a href="{{ full_url_for('products') }}" >
-        <div
-          class="card text-white"
-          style="width: 18rem; background-color: #7acbee; font-size: 20px"
-        >
-          <div class="card-body">
-            <div class="row mx-auto">
-              <div class="col-lg-3">
-                <i class="bi bi-cart-check-fill" style="font-size: 25px;"></i>
-              </div>
-              <div class="col-lg-9">
-                <p class="card-text">Productos</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-lg-4 mt-4 card-container mx-auto">
-      <a href="{{ full_url_for('sells') }}" >
-        <div
-          class="card text-white"
-          style="width: 18rem; background-color: #f3ce5b; font-size: 20px"
-        >
-          <div class="card-body">
-            <div class="row mx-auto">
-              <div class="col-lg-3">
-                <i class="bi bi-currency-dollar" style="font-size: 25px;"></i>
-              </div>
-              <div class="col-lg-9">
-                <p class="card-text">Ventas</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
+<div class="row mx-auto">
+	<div class="col-lg-4 card-container">
+		<a href="{{ full_url_for('users') }}">
+			<div class="card text-white" style=" background-color: #20c7a6; font-size: 20px">
+				<div class="card-body">
+					<div class="row mx-auto">
+						<div class="col-lg-3">
+							<i class="bi bi-people-fill" style="font-size: 25px;"></i>
+						</div>
+						<div class="col-lg-9">
+							<p class="card-text">Usuarios</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+	<div class="col-lg-4 card-container">
+		<a href="{{ full_url_for('categories') }}">
+			<div class="card text-white" style=" background-color: #ff7857; font-size: 20px">
+				<div class="card-body">
+					<div class="row mx-auto">
+						<div class="col-lg-3">
+							<i class="bi bi-tags-fill" style="font-size: 25px;"></i>
+						</div>
+						<div class="col-lg-9">
+							<p class="card-text">Categorías</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+	<div class="col-lg-4 card-container">
+		<a href="{{ full_url_for('products') }}">
+			<div class="card text-white" style=" background-color: #7acbee; font-size: 20px">
+				<div class="card-body">
+					<div class="row mx-auto">
+						<div class="col-lg-3">
+							<i class="bi bi-cart-check-fill" style="font-size: 25px;"></i>
+						</div>
+						<div class="col-lg-9">
+							<p class="card-text">Productos</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+	<div class="col-lg-4 mt-3 card-container mx-auto">
+		<a href="{{ full_url_for('sells') }}">
+			<div class="card text-white" style=" background-color: #f3ce5b; font-size: 20px">
+				<div class="card-body">
+					<div class="row mx-auto">
+						<div class="col-lg-3">
+							<i class="bi bi-currency-dollar" style="font-size: 25px;"></i>
+						</div>
+						<div class="col-lg-9">
+							<p class="card-text">Ventas</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
 </div>
