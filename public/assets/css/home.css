@@ -10,4 +10,5 @@
 
 .card-body  .last-product  a .span-price{
    height: 20px;
+   font-weight: bold;
 }

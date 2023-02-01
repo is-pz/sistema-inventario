@@ -146,18 +146,18 @@ class Sell{
     public $idProducto;
     public $idUsuario;
     public $nombreProducto;
-    public $cantidadVendido;
+    public $cantidadVendidos;
     public $precioProducto;
     public $precioVenta;
     public $descripcionVenta;
     public $sell_at;
 
-    public function __construct($idProducto, $idUsuario, $nombreProducto, $cantidadVendido, $precioProducto, $precioVenta, $descripcionVenta)
+    public function __construct($idProducto, $idUsuario, $nombreProducto, $cantidadVendidos, $precioProducto, $precioVenta, $descripcionVenta)
     {
         $this->idProducto = $idProducto;
         $this->idUsuario = $idUsuario;
         $this->nombreProducto = $nombreProducto;
-        $this->cantidadVendido = $cantidadVendido;
+        $this->cantidadVendidos = $cantidadVendidos;
         $this->precioProducto = $precioProducto;
         $this->precioVenta = $precioVenta;
         $this->descripcionVenta = $descripcionVenta;

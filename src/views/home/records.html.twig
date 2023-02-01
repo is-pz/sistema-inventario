@@ -59,17 +59,17 @@
                 <div class="card-body row mx-auto">
                     <h5 class="card-title col-lg-12"> <i class="bi bi-plus-square-fill"></i> Productos recien añadidos</h5>
                     {% for lastProduct in lastAddedProduct %}
-                        <div class="col-lg-4 mt-2 last-product">
+                        <div class="col mt-2 last-product border border-dark-subtle rounded me-1">
                             
                             <a href="{{ full_url_for('show_product', {'id': lastProduct.id}) }}" class="link-producto">
-                                <div class="row text-center ">
+                                <div class="row text-center mt-1 me-1">
                                     <img 
-                                        class="col-lg-3" 
+                                        class="col-lg-4" 
                                         src="/assets/img/default/product-default.png" 
                                         alt="Imagen de producto" 
                                         height="80">
                                     <p class="col-lg-6">{{ lastProduct.nombreProducto }}</p>
-                                    <span class="col-lg-3 badge text-bg-warning span-price">$ {{ lastProduct.precioPublico }}</span>
+                                    <span class="col-lg-2 badge text-bg-warning span-price">$ {{ lastProduct.precioPublico }}</span>
                                 </div>
                                 <p>
                                     {% for category in categories %}

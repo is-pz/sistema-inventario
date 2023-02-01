@@ -41,6 +41,10 @@
 						<label for="precioVenta" class="form-label">Precio de venta: <span class="text-danger" style="font-size:20px;">*</span></label>
 						<input type="text" value="{{ sell.precioVenta }}" placeholder="$" name="precioVenta" class="form-control" id="precioVenta" require>
 					</div>
+					<div class="mb-3 col-lg-6">
+						<label for="cantidadVendido" class="form-label">Cantidad vendidos: <span class="text-danger" style="font-size:20px;">*</span></label>
+						<input type="text" value="{{ sell.cantidadVendidos }}" placeholder="$" name="cantidadVendido" class="form-control" id="cantidadVendido" require>
+					</div>
 					<div class="form-floating">
 						<textarea class="form-control" placeholder="Ingrese una breve descripción" name="descripcionProducto" id="descripcionProducto" style="height: 100px">{{ sell.descripcionVenta }}</textarea>
 						<label for="descripcionProducto">Descripción de la venta:</label>
