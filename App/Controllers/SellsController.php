@@ -63,7 +63,7 @@ class SellsController{
 
         $product = $this->productsModel->getOne($body['idProducto']);
 
-        $sell = new Sell($body['idProducto'], $idUsuario, $product['nombreProducto'], $product['precioCosto'], $body['precioVenta'], $body['descripcionProducto']);
+        $sell = new Sell($body['idProducto'], $idUsuario, $product['nombreProducto'], $product['cantidadVendido'], $product['precioCosto'], $body['precioVenta'], $body['descripcionProducto']);
 
         $this->sellsModel->insertSell($sell);
 
@@ -121,7 +121,7 @@ class SellsController{
 
         $product = $this->productsModel->getOne($body['idProducto']);
 
-        $sell = new Sell($body['idProducto'], $idUsuario, $product['nombreProducto'], $product['precioCosto'], $body['precioVenta'], $body['descripcionProducto']);
+        $sell = new Sell($body['idProducto'], $idUsuario, $product['nombreProducto'], $product['cantidadVendido'] , $product['precioCosto'], $body['precioVenta'], $body['descripcionProducto']);
 
         $this->sellsModel->updateSell($sell, $idVenta);
 

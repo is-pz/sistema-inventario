@@ -41,13 +41,14 @@ class SellModel
         try{
             self::$mbd->beginTransaction();
             
-            $sql = 'INSERT INTO ventas(idProducto, idUsuario , nombreProducto, precioProducto , precioVenta, descripcionVenta, sell_at) VALUES (:idProducto, :idUsuario, :nombreProducto, :precioProducto, :precioVenta, :descripcionVenta, :sell_at)';
+            $sql = 'INSERT INTO ventas(idProducto, idUsuario , nombreProducto, cantidadVendido ,precioProducto , precioVenta, descripcionVenta, sell_at) VALUES (:idProducto, :idUsuario, :nombreProducto, :cantidadVendido, :precioProducto, :precioVenta, :descripcionVenta, :sell_at)';
             
             $stmt = self::$mbd->prepare($sql);
 
             $stmt->bindValue(":idProducto", $sell->idProducto);
             $stmt->bindValue(":idUsuario", $sell->idUsuario);
             $stmt->bindValue(":nombreProducto", $sell->nombreProducto);
+            $stmt->bindValue(":cantidadVendido", $sell->cantidadVendido);
             $stmt->bindValue(":precioProducto", $sell->precioProducto);
             $stmt->bindValue(":precioVenta", $sell->precioVenta);
             $stmt->bindValue(":descripcionVenta", $sell->descripcionVenta);
@@ -69,7 +70,7 @@ class SellModel
         try{
             self::$mbd->beginTransaction();
             
-            $sql = 'UPDATE ventas SET idProducto =:idProducto, idUsuario =:idUsuario, nombreProducto= :nombreProducto, precioProducto =:precioProducto, precioVenta =:precioVenta, descripcionVenta= :descripcionVenta, sell_at= :sell_at WHERE id= :idVenta';
+            $sql = 'UPDATE ventas SET idProducto =:idProducto, idUsuario =:idUsuario, nombreProducto= :nombreProducto, cantidadVendido=:cantidadVendido, precioProducto =:precioProducto, precioVenta =:precioVenta, descripcionVenta= :descripcionVenta, sell_at= :sell_at WHERE id= :idVenta';
             
 
             $stmt = self::$mbd->prepare($sql);
@@ -78,6 +79,7 @@ class SellModel
             $stmt->bindValue(":idProducto", $sell->idProducto);
             $stmt->bindValue(":idUsuario", $sell->idUsuario);
             $stmt->bindValue(":nombreProducto", $sell->nombreProducto);
+            $stmt->bindValue(":cantidadVendido", $sell->cantidadVendido);
             $stmt->bindValue(":precioProducto", $sell->precioProducto);
             $stmt->bindValue(":precioVenta", $sell->precioVenta);
             $stmt->bindValue(":descripcionVenta", $sell->descripcionVenta);
@@ -117,16 +119,18 @@ class Sell{
     public $idProducto;
     public $idUsuario;
     public $nombreProducto;
+    public $cantidadVendido;
     public $precioProducto;
     public $precioVenta;
     public $descripcionVenta;
     public $sell_at;
 
-    public function __construct($idProducto, $idUsuario, $nombreProducto, $precioProducto, $precioVenta, $descripcionVenta)
+    public function __construct($idProducto, $idUsuario, $nombreProducto, $cantidadVendido, $precioProducto, $precioVenta, $descripcionVenta)
     {
         $this->idProducto = $idProducto;
         $this->idUsuario = $idUsuario;
         $this->nombreProducto = $nombreProducto;
+        $this->cantidadVendido = $cantidadVendido;
         $this->precioProducto = $precioProducto;
         $this->precioVenta = $precioVenta;
         $this->descripcionVenta = $descripcionVenta;
