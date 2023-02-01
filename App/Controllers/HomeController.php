@@ -10,15 +10,18 @@ use Slim\Views\Twig;
 //Modelos
 use App\Models\ProductModel;
 use App\Models\CategoryModel;
+use App\Models\SellModel;
 
 class HomeController{
     private $productModel;
     private $categoryModel;
+    private $sellModel;
 
     function __construct()
     {
         $this->productModel = new ProductModel();
         $this->categoryModel = new CategoryModel();
+        $this->sellModel = new SellModel();
     }
 
 
@@ -27,10 +30,14 @@ class HomeController{
         
         $lastAddedProduct = $this->productModel->getLastAddedProducts();
         $listCategories = $this->categoryModel->getAll();
-
+        $bestSellers = $this->sellModel->getBestSellers();
+        $lastSold = $this->sellModel->getLastSold();
+ 
         $params = [
             'lastAddedProduct' => $lastAddedProduct,
             'categories' => $listCategories,
+            'bestsellers'=> $bestSellers,
+            'lastSold' => $lastSold
         ];
         return $view->render($response, "home/index.html.twig", $params);   
      }

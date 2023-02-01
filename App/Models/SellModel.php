@@ -113,6 +113,33 @@ class SellModel
         }
     }
 
+    public function getBestSellers(){
+        $sql =  'SELECT p.nombreProducto, p.stock, COUNT(s.idProducto) AS totalSold, SUM(s.cantidadVendidos) ';
+        $sql .= 'FROM ventas s ';
+        $sql .= 'LEFT JOIN productos p ON p.id = s.idProducto ';
+        $sql .= 'GROUP BY s.idProducto ';
+        $sql .= 'ORDER BY SUM(s.cantidadVendidos) DESC LIMIT 3';
+        $stmt = self::$mbd->prepare($sql);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
+    public function getLastSold(){
+        $sql = 'SELECT * FROM ventas v ';
+        $sql .= 'LEFT JOIN productos p ON p.id = v.idProducto ';
+        $sql .= 'ORDER BY v.id DESC LIMIT 3 ';
+
+        $stmt = self::$mbd->prepare($sql);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
 }
 
 class Sell{
