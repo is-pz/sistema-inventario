@@ -5,13 +5,17 @@ use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 use Slim\Routing\RouteCollectorProxy;
 
-
+//Controladores
 use App\Controllers\HomeController;
 use App\Controllers\UsersController;
-use App\Controllers\RolesController;
 use App\Controllers\CategoriesController;
 use App\Controllers\ProductsController;
 use App\Controllers\SellsController;
+use App\Controllers\LoginController;
+
+//Middlewares
+use App\Middleware\AuhtMiddleware;
+use App\Middleware\LoginMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -21,7 +25,7 @@ $twig = Twig::create('../src/views', ['cache' => false]);
 
 $app->add(TwigMiddleware::create($app, $twig));
 
-$app->get("/", [HomeController::class, 'index'])->setName('home');
+$app->get("/", [HomeController::class, 'index'])->setName('home')->addMiddleware(new AuhtMiddleware());;
 
 
 $app->group('/user', function (RouteCollectorProxy $group) {
@@ -38,7 +42,7 @@ $app->group('/user', function (RouteCollectorProxy $group) {
     $group->post("/update/{id}", [UsersController::class, 'update'])->setName('update_user'); //update
 
     $group->post("/delete", [UsersController::class, 'destroy'])->setName('delete_user'); //destroy
-});
+})->addMiddleware(new AuhtMiddleware());
 
 $app->group('/categories', function (RouteCollectorProxy $group) {
     $group->get("", [CategoriesController::class, 'index'])->setName('categories');
@@ -52,7 +56,7 @@ $app->group('/categories', function (RouteCollectorProxy $group) {
     $group->post("/update/{id}", [CategoriesController::class, 'update'])->setName('update_category'); //update
 
     $group->post("/delete", [CategoriesController::class, 'destroy'])->setName('delete_category'); //destroy
-});
+})->addMiddleware(new AuhtMiddleware());
 
 $app->group('/products', function (RouteCollectorProxy $group) {
     $group->get("", [ProductsController::class, 'index'])->setName('products');
@@ -68,7 +72,7 @@ $app->group('/products', function (RouteCollectorProxy $group) {
     $group->post("/update/{id}", [ProductsController::class, 'update'])->setName('update_product'); //update
 
     $group->post("/delete", [ProductsController::class, 'destroy'])->setName('delete_product'); //destroy
-});
+})->addMiddleware(new AuhtMiddleware());
 
 $app->group('/sells', function (RouteCollectorProxy $group) {
     $group->get("", [SellsController::class, 'index'])->setName('sells');
@@ -84,7 +88,16 @@ $app->group('/sells', function (RouteCollectorProxy $group) {
     $group->post("/update/{id}", [SellsController::class, 'update'])->setName('update_sell'); //update
 
     $group->post("/delete", [SellsController::class, 'destroy'])->setName('delete_sell'); //destroy
-});
+})->addMiddleware(new AuhtMiddleware());
 
+//Grupo para login
+$app->group('/auth', function(RouteCollectorProxy $group){
+    $group->get('/', [LoginController::class, 'index'])->setName('auth');
+
+    // $group->post('/login', [LoginController::class, 'login'])->setName('login');
+
+    // $group->get('/logout', [LoginController::class, 'logout'])->setName('logout');
+
+})->addMiddleware(new LoginMiddleware());
 
 $app->run();
