@@ -59,14 +59,16 @@
 								</td>
 								<td>
 									<div class="row">
-										<div class="col-lg-12">
-											<a href="{{ full_url_for('edit_category', { 'id': category.id }) }}" class="col-lg-5 btn btn-warning">Editar</a>
-											<div class="col-lg-5 ">
-												<form class="" method="POST" action="{{ full_url_for('delete_category') }}">
-													<input type="hidden" name="id" value="{{ category.id }}">
-													<button class=" btn btn-danger">Eliminar</button>
-												</form>
-											</div>
+										<div class="col-lg-6">
+											<a 
+												href="{{ full_url_for('edit_category', { 'id': category.id }) }}" 
+												class="col-lg-12 btn btn-warning">Editar</a>
+										</div>
+										<div class="col-lg-6 ">
+											<form class="" method="POST" action="{{ full_url_for('delete_category') }}">
+												<input type="hidden" name="id" value="{{ category.id }}">
+												<button class="col-lg-12 btn btn-danger">Eliminar</button>
+											</form>
 										</div>
 									</div>
 								</td>
