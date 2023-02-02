@@ -2,22 +2,31 @@
     height: 100%;
 }
 
-#container-main-sidebar #container-sidebar .container-link{
+#container-main-sidebar #container-sidebar .container-link {
+    margin-top: 30px;
+}
+
+#container-main-sidebar #container-sidebar .container-link .link .button-link{
+    border: 1px solid white;
+    height: 50px;
+    width: 100% ;
+}
+
+#container-main-sidebar #container-sidebar .container-link .link .button-link{
     border-top: 1px solid white;
     border-bottom: 1px solid white;
-    padding: 22px;
-    height: 78px;   
+    height: 50px;
+    width: 100% ;
 }
 
-#container-main-sidebar #container-sidebar div .link{
-    text-decoration: none; 
-    color:white;
+#container-main-sidebar #container-sidebar .container-link .link .button-link:hover{
+    background-color: rgb(201 201 201)!important;
+    color:black!important; 
 }
 
-#container-main-sidebar #container-sidebar div:hover{
-    background-color: rgb(160, 159, 159); 
-}
+/* #container-main-sidebar #container-sidebar div:hover{
+} */
 
-#container-main-sidebar #container-sidebar div:hover .link{
+/* #container-main-sidebar #container-sidebar div:hover .link{
     color: white;
-}
+} */
