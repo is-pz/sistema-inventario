@@ -33,11 +33,16 @@ class HomeController{
         $bestSellers = $this->sellModel->getBestSellers();
         $lastSold = $this->sellModel->getLastSold();
  
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
+
         $params = [
             'lastAddedProduct' => $lastAddedProduct,
             'categories' => $listCategories,
             'bestsellers'=> $bestSellers,
-            'lastSold' => $lastSold
+            'lastSold' => $lastSold,
+            'username' => $username,
+            'userId' => $userId
         ];
         return $view->render($response, "home/index.html.twig", $params);   
      }
