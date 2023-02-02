@@ -29,13 +29,16 @@ class UsersController{
      */
     public function index(Request $request, Response $response, $args){
         $view = Twig::fromRequest($request);
-        
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
         $listOfUsers = $this->userModel->getAll();
         $listOfRoles = $this->rolModel->getAll();
 
         $params = [
             'users' => $listOfUsers,
             'roles' => $listOfRoles,
+            'username' => $username,
+            'userId' => $userId
         ];
         return $view->render($response, "users/index.html.twig", $params);   
      }
@@ -48,10 +51,14 @@ class UsersController{
     public function create(Request $request, Response $response, $args)
     {
         $view = Twig::fromRequest($request);
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
         $listOfRoles = $this->rolModel->getAll();
 
         $params = [
             'roles' => $listOfRoles,
+            'username' => $username,
+            'userId' => $userId
         ];
         return $view->render($response, "users/create.html.twig", $params);   
     }
@@ -80,7 +87,8 @@ class UsersController{
     public function show(Request $request, Response $response, $args)
     {
         $view = Twig::fromRequest($request);
-
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
         $id = $args['id'];
         $datoUsuarios = $this->userModel->getOne($id);
         $listOfRoles = $this->rolModel->getAll();
@@ -88,6 +96,8 @@ class UsersController{
          $params = [
             'usuario' => $datoUsuarios,
             'roles' => $listOfRoles,
+            'username' => $username,
+            'userId' => $userId
         ];
         return $view->render($response, "users/show.html.twig", $params);   
     }
@@ -99,7 +109,8 @@ class UsersController{
     public function edit(Request $request, Response $response, $args)
     {
         $view = Twig::fromRequest($request);
-        
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
         $id = $args['id'];
         $datoUsuarios = $this->userModel->getOne($id);
         $listOfRoles = $this->rolModel->getAll();
@@ -107,6 +118,8 @@ class UsersController{
         $params = [
             'usuario' => $datoUsuarios,
             'roles' => $listOfRoles,
+            'username' => $username,
+            'userId' => $userId
         ];
         return $view->render($response, "users/edit.html.twig", $params);   
     }

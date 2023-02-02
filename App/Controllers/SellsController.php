@@ -30,9 +30,13 @@ class SellsController{
 
     public function index(Request $request, Response $response, $args){
         $view = Twig::fromRequest($request);
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
         $sells = $this->sellsModel->getAll();
         $params = [
             'sells' => $sells,
+            'username' => $username,
+            'userId' => $userId
         ];
         return $view->render($response, "sells/index.html.twig", $params);   
      }
@@ -44,9 +48,13 @@ class SellsController{
     public function create(Request $request, Response $response, $args)
     {
         $view = Twig::fromRequest($request);
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
         $products = $this->productsModel->getAll();
         $params = [
             'products' => $products,
+            'username' => $username,
+            'userId' => $userId
         ];
         return $view->render($response, "sells/create.html.twig", $params);   
     }
@@ -80,12 +88,16 @@ class SellsController{
     public function show(Request $request, Response $response, $args)
     {
         $view = Twig::fromRequest($request);
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
         $id = $args['id'];
         $sell = $this->sellsModel->getOne($id);
         $user = $this->usersModel->getOne($sell['idUsuario']);
         $params = [
             'sell' => $sell,
-            'user' => $user
+            'user' => $user,
+            'username' => $username,
+            'userId' => $userId
         ];
         return $view->render($response, "sells/show.html.twig", $params);   
     }
@@ -97,12 +109,16 @@ class SellsController{
     public function edit(Request $request, Response $response, $args)
     {
         $view = Twig::fromRequest($request);
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
         $id = $args['id'];
         $sell = $this->sellsModel->getOne($id);
         $products = $this->productsModel->getAll();
         $params = [
             'sell' => $sell,
             'products' => $products,
+            'username' => $username,
+            'userId' => $userId
         ];
         return $view->render($response, "sells/edit.html.twig", $params);   
     }

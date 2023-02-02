@@ -26,8 +26,13 @@ class CategoriesController{
         $view = Twig::fromRequest($request);
         $categories = $this->categoryModel->getAll();
 
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
+
         $params = [
-            'categories' => $categories
+            'categories' => $categories,
+            'username' => $username,
+            'userId' => $userId
         ];
         return $view->render($response, "categories/index.html.twig", $params);   
      }
@@ -39,7 +44,12 @@ class CategoriesController{
     public function create(Request $request, Response $response, $args)
     {
         $view = Twig::fromRequest($request);
-        $params = [];
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
+        $params = [
+            'username' => $username,
+            'userId' => $userId
+        ];
         return $view->render($response, "categories/create.html.twig", $params);   
     }
 
@@ -77,11 +87,15 @@ class CategoriesController{
     public function edit(Request $request, Response $response, $args)
     {
         $view = Twig::fromRequest($request);
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
         $id = $args['id'];
         $category = $this->categoryModel->getOne($id);
 
         $params = [
-            'category' => $category
+            'category' => $category,
+            'username' => $username,
+            'userId' => $userId
         ];
         return $view->render($response, "categories/edit.html.twig", $params);   
     }
@@ -112,7 +126,8 @@ class CategoriesController{
     public function destroy(Request $request, Response $response, $args)
     {
         $body = $request->getParsedBody();
-
+        $username = $_SESSION['user-sistema-inv']['username'];
+        $userId = $_SESSION['user-sistema-inv']['idUser'];
         $id = $body['id'];
         $this->categoryModel->deleteCategory($id);
 
