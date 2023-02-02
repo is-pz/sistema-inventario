@@ -12,8 +12,4 @@ deny from all
   RewriteRule ^$ public/ [L]
   RewriteRule (.*) public/$1 [L]
 
-  # Redirect to HTTPS
-  # RewriteEngine On
-  # RewriteCond %{HTTPS} off
-  # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
