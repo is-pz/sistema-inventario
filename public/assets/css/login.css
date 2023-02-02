@@ -1,0 +1,9 @@
+body{
+    background-color: #373b3e;
+    color: white;
+    font-size: 20px;
+}
+
+#text-welcome-login{
+    margin-bottom: 5rem;
+}

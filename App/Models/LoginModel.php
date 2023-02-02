@@ -13,12 +13,12 @@ class LoginModel
         self::$mbd = Connection::getInstance()->getDatabaseInstance();
     }
 
-    public function getData($name){
-        $sql = "SELECT * FROM usuarios WHERE NombreUsuario = ? ";
+    public function getOne($name){
+        $sql = "SELECT * FROM usuarios WHERE name =:nombreUsuario ";
         $stmt = self::$mbd->prepare($sql);
-        $stmt->bindValue(1, $name);
+        $stmt->bindValue(':nombreUsuario', $name);
         $stmt->execute();
-        $row = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         return $row;
     }

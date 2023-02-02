@@ -17,16 +17,16 @@ class AuhtMiddleware implements MiddlewareInterface
             session_start();
         }     
         
-        if(isset($_COOKIE['authSistemaInventario'])){
-            if($_COOKIE['authSistemaInventario']){
-                return $handler->handle($request);
-            }
-        }
+        // if(isset($_COOKIE['sistema-inventario'])){
+        //     if($_COOKIE['sistema-inventario']){
+        //         return $handler->handle($request);
+        //     }
+        // }
 
-        if(!isset($_SESSION['auth'])){
+        if(!isset($_SESSION['user-sistema-inv'])){
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             $url = $routeParser->urlFor('auth');
-            $_SESSION['auth'] = false;
+            $_SESSION['user-sistema-inv'] = null;
             $response = new \Slim\Psr7\Response();
 
             return $response->withHeader('Location', $url)->withStatus(302);

@@ -25,7 +25,7 @@ $twig = Twig::create('../src/views', ['cache' => false]);
 
 $app->add(TwigMiddleware::create($app, $twig));
 
-$app->get("/", [HomeController::class, 'index'])->setName('home')->addMiddleware(new AuhtMiddleware());;
+$app->get("/", [HomeController::class, 'index'])->setName('home')->addMiddleware(new AuhtMiddleware());
 
 
 $app->group('/user', function (RouteCollectorProxy $group) {
@@ -94,9 +94,9 @@ $app->group('/sells', function (RouteCollectorProxy $group) {
 $app->group('/auth', function(RouteCollectorProxy $group){
     $group->get('/', [LoginController::class, 'index'])->setName('auth');
 
-    // $group->post('/login', [LoginController::class, 'login'])->setName('login');
+    $group->post('/login', [LoginController::class, 'login'])->setName('login');
 
-    // $group->get('/logout', [LoginController::class, 'logout'])->setName('logout');
+    $group->get('/logout', [LoginController::class, 'logout'])->setName('logout');
 
 })->addMiddleware(new LoginMiddleware());
 
