@@ -9,8 +9,7 @@
     "autoload": {
         "psr-4": {
           "App\\" : "app/",
-          "Database\\": "database/",
-          "App\\Middleware\\": "app/Middleware"
+          "Database\\": "database/"
         }
     }
 }
