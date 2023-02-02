@@ -12,3 +12,7 @@
    height: 20px;
    font-weight: bold;
 }
+
+#row-principal{
+    height: 100vh;
+}
