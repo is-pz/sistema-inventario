@@ -17,11 +17,12 @@ class AuhtMiddleware implements MiddlewareInterface
             session_start();
         }     
         
-        // if(isset($_COOKIE['sistema-inventario'])){
-        //     if($_COOKIE['sistema-inventario']){
-        //         return $handler->handle($request);
-        //     }
-        // }
+
+        if(isset($_COOKIE['sistema-inventario'])){
+            if($_COOKIE['sistema-inventario']){
+                return $handler->handle($request);
+            }
+        }
 
         if(!isset($_SESSION['user-sistema-inv'])){
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();

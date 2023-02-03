@@ -42,6 +42,8 @@ class LoginMiddleware implements MiddlewareInterface{
                         'rol' => $dataUser['idRol'],
                         'imageUser' => $dataUser['imageUser'],
                     ];
+
+                    setcookie('user-sistema-inv', '1', time() + 1800, '/'); //Agrega una cookie para una sesion de media hora
                 }
             }
             

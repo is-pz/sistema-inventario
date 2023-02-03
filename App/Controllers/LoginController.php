@@ -32,7 +32,7 @@ class LoginController
 
     public function logout(Request $request, Response $response, $args){
         $parsedUrl = RouteContext::fromRequest($request)->getRouteParser();
-        $url = $parsedUrl->urlFor('login');
+        $url = $parsedUrl->urlFor('auth');
         
         unset($_SESSION['user-sistema-inv']);
 
