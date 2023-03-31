@@ -27,7 +27,7 @@ class Connection {
     //Conexion con la base de datos
     private function make_connection(){
         try{
-            $connection = new \PDO('mysql:host=localhost;dbname=sistema_inv', 'root', '');
+            $connection = new \PDO('mysql:host=localhost;dbname=sistema_inv', 'root', ''); //TODO: Los datos deben de cambiarse al .env
            
             $connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             

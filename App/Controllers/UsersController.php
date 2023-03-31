@@ -12,15 +12,22 @@ use App\Models\UserModel;
 use App\Models\RolModel;
 use App\Models\User;
 
+//Utilities
+use App\Utilities\moveUploadedFile;
+
 class UsersController{
     
     private $userModel;
     private $rolModel;
+    private $moveUploadedFile;
+    private $directoryToImageUsers;
 
     function __construct()
     {
         $this->userModel = new UserModel();
         $this->rolModel = new RolModel();
+        $this->moveUploadedFile = new moveUploadedFile();
+        $this->directoryToImageUsers =  dirname(__DIR__, 2) .'/public/assets/img/image-users';
     }
 
     /**
@@ -70,10 +77,16 @@ class UsersController{
     public function store(Request $request, Response $response, $args)
     {
         $body = $request->getParsedBody();
-        $user = new User( $body['rol'], $body['username'], $body['password'], '', $body['estatus'] );
+
+        $uploadedFiles = $request->getUploadedFiles(); 
+        $imageUser = $uploadedFiles['imageUser'];
+        
+        $nameFile =$this->moveUploadedFile->moveFile($this->directoryToImageUsers,$imageUser);
+        
+        $user = new User( $body['rol'], $body['username'], $body['password'], $nameFile, $body['estatus'] );
 
         $addNewUser = $this->userModel->insertUser($user);
-
+        
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $url = $routeParser->urlFor('edit_user', ['id' => $addNewUser]);
 

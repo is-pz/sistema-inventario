@@ -23,7 +23,12 @@
 
 				<div class="row text-center mt-3">
 					<div class="col-lg-12 ">
-						<img src="/assets/img/default/perfil-usuario.png" 
+						<img 
+							{% if usuario.imageUser is null  %}
+								src="/assets/img/default/perfil-usuario.png" 
+							{% else %}
+								src="/assets/img/default/{{ usuario.imageUser }}" 
+							{% endif %}
 							alt="imagen de usuario"
 							class="rounded-circle" 
 							width="200" 
